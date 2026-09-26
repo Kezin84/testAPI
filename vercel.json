@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/byteplus-api/:path*",
+      "destination": "https://ark.ap-southeast.bytepluses.com/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
