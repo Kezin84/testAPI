@@ -304,7 +304,6 @@ Văn bản bổ sung: "${smartInput.value}"`
             <input 
               type="file" 
               accept="image/*" 
-              capture="environment" 
               ref="fileInput" 
               style="display: none;" 
               @change="handleImageUpload" 

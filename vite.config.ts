@@ -23,6 +23,11 @@ export default defineConfig({
         target: 'https://ark.ap-southeast.bytepluses.com',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/byteplus-api/, '')
+      },
+      '/mst-api': {
+        target: 'https://api.vietqr.io/v2/business',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/mst-api/, '')
       }
     }
   }
