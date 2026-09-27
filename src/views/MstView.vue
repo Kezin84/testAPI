@@ -469,45 +469,47 @@ BẮT BUỘC TRẢ VỀ CHUỖI JSON ĐÚNG ĐỊNH DẠNG SAU, KHÔNG CÓ MARKD
         </div>
 
         <div class="search-box">
-          <input 
-            v-model="mstInput" 
-            type="text" 
-            placeholder="Mã số thuế, dán ảnh, ghi âm hoặc tải ảnh hóa đơn..." 
-            class="mst-input"
-            @keyup.enter="searchMST"
-            @paste="handlePaste"
-          />
-          
-          <!-- Hidden File Input for Camera/Gallery -->
-          <input 
-            type="file" 
-            accept="image/*" 
-            ref="fileInput" 
-            style="display: none;" 
-            @change="handleImageUpload" 
-          />
+          <div class="search-input-wrapper">
+            <input 
+              v-model="mstInput" 
+              type="text" 
+              placeholder="Mã số thuế, dán ảnh, ghi âm hoặc tải ảnh..." 
+              class="mst-input"
+              @keyup.enter="searchMST"
+              @paste="handlePaste"
+            />
+            
+            <!-- Hidden File Input for Camera/Gallery -->
+            <input 
+              type="file" 
+              accept="image/*" 
+              ref="fileInput" 
+              style="display: none;" 
+              @change="handleImageUpload" 
+            />
 
-          <!-- Camera Button -->
-          <button 
-            type="button" 
-            class="search-icon-btn" 
-            @click="triggerCamera"
-            title="Chụp ảnh / Tải ảnh lên"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
-          </button>
+            <!-- Camera Button -->
+            <button 
+              type="button" 
+              class="search-icon-btn" 
+              @click="triggerCamera"
+              title="Chụp ảnh / Tải ảnh lên"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+            </button>
 
-          <!-- Mic Button -->
-          <button 
-            type="button" 
-            class="search-icon-btn mic-btn" 
-            :class="{ 'recording': isRecording }"
-            @click="toggleRecording"
-            :title="isRecording ? 'Dừng ghi âm' : 'Bắt đầu ghi âm'"
-          >
-            <svg v-if="!isRecording" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
-            <svg v-else xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="6" height="6" x="9" y="9" rx="1" ry="1"/><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
-          </button>
+            <!-- Mic Button -->
+            <button 
+              type="button" 
+              class="search-icon-btn mic-btn" 
+              :class="{ 'recording': isRecording }"
+              @click="toggleRecording"
+              :title="isRecording ? 'Dừng ghi âm' : 'Bắt đầu ghi âm'"
+            >
+              <svg v-if="!isRecording" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+              <svg v-else xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="6" height="6" x="9" y="9" rx="1" ry="1"/><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+            </button>
+          </div>
 
           <button class="search-btn" @click="searchMST" :disabled="isLoading || isExtracting || !mstInput.trim()">
             <svg v-if="!isLoading" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -667,8 +669,17 @@ BẮT BUỘC TRẢ VỀ CHUỖI JSON ĐÚNG ĐỊNH DẠNG SAU, KHÔNG CÓ MARKD
   background: rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 14px;
-  padding: 0.5rem 0.5rem 0.5rem 1.2rem;
+  padding: 0.5rem;
+  padding-left: 1.2rem;
   transition: all 0.3s ease;
+}
+
+.search-input-wrapper {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  gap: 0.5rem;
+  width: 100%;
 }
 
 .search-box:focus-within {
